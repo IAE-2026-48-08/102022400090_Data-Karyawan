@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Models\Employee;
 
-Route::middleware('apikey')->group(function () {
+Route::middleware('api.key')->group(function () {
 
     Route::get('/v1/employees', [EmployeeController::class, 'index']);
 

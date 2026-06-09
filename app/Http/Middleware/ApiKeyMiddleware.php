@@ -4,18 +4,17 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class ApiKeyMiddleware
 {
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
         $apiKey = $request->header('X-IAE-KEY');
 
-        if ($apiKey !== '102022400090') {
+        if (!$apiKey || $apiKey !== env('API_KEY')) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Unauthorized',
+                'message' => 'Unauthorized - Invalid or missing API Key',
                 'errors' => null
             ], 401);
         }
