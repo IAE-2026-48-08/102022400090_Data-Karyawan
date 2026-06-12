@@ -82,6 +82,156 @@
                     }
                 ]
             }
+        },
+        "/api/v1/messages/publish": {
+            "post": {
+                "tags": [
+                    "RabbitMQ"
+                ],
+                "summary": "Publish event ke RabbitMQ",
+                "operationId": "a445713ced5e35d2f30845ec5c1da961",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "event_type": {
+                                        "type": "string",
+                                        "example": "EmployeeCreated"
+                                    },
+                                    "payload": {
+                                        "type": "string",
+                                        "example": "{\"employee_id\":1}"
+                                    },
+                                    "bearer_token": {
+                                        "type": "string",
+                                        "example": "eyJ..."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Event published"
+                    },
+                    "500": {
+                        "description": "Publish error"
+                    }
+                }
+            }
+        },
+        "/api/v1/audit/send": {
+            "post": {
+                "tags": [
+                    "SOAP Audit"
+                ],
+                "summary": "Kirim audit ke SOAP server",
+                "operationId": "eb5968c6d2de02649b9c45cb912c3be8",
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "activity_name": {
+                                        "type": "string",
+                                        "example": "EmployeeDataAccess"
+                                    },
+                                    "transaction_data": {
+                                        "type": "string",
+                                        "example": "{\"action\":\"GET\",\"resource\":\"employees\"}"
+                                    },
+                                    "bearer_token": {
+                                        "type": "string",
+                                        "example": "eyJ..."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Audit sent"
+                    },
+                    "500": {
+                        "description": "SOAP error"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/login": {
+            "post": {
+                "tags": [
+                    "SSO"
+                ],
+                "summary": "Login user via SSO",
+                "operationId": "1ce8f7a861d8cb7183db0c6e858a16d5",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "warga30@ktp.iae.id"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "KtpDigital2026!"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/login-m2m": {
+            "post": {
+                "tags": [
+                    "SSO"
+                ],
+                "summary": "Login M2M via API Key",
+                "operationId": "e77aa85eb730f783342b491d55a9d005",
+                "responses": {
+                    "200": {
+                        "description": "Token retrieved"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/health": {
+            "get": {
+                "tags": [
+                    "SSO"
+                ],
+                "summary": "SSO Health Check",
+                "operationId": "a297de04ebe92473a6ed85aabcf2fd14",
+                "responses": {
+                    "200": {
+                        "description": "SSO is up"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -97,6 +247,18 @@
         {
             "name": "Employees",
             "description": "Employees"
+        },
+        {
+            "name": "RabbitMQ",
+            "description": "RabbitMQ"
+        },
+        {
+            "name": "SOAP Audit",
+            "description": "SOAP Audit"
+        },
+        {
+            "name": "SSO",
+            "description": "SSO"
         }
     ]
 }

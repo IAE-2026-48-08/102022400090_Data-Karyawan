@@ -2,16 +2,24 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\SsoController;
 use App\Models\Employee;
+use App\Http\Controllers\Api\SoapController;
+use App\Http\Controllers\Api\RabbitMqController;
 
-Route::middleware('api.key')->group(function () {
+Route::prefix('v1')->group(function () {
+    Route::post('/auth/login', [SsoController::class, 'login']);
+    Route::post('/auth/login-m2m', [SsoController::class, 'loginM2M']);
+    Route::get('/auth/health', [SsoController::class, 'health']);
 
-    Route::get('/v1/employees', [EmployeeController::class, 'index']);
+    Route::post('/audit/send', [SoapController::class, 'sendAudit']);
+    Route::post('/messages/publish', [RabbitMqController::class, 'publish']);
 
-    Route::get('/v1/employees/{id}', [EmployeeController::class, 'show']);
-
-    Route::post('/v1/employees', [EmployeeController::class, 'store']);
-
+    Route::middleware('api.key')->group(function () {
+        Route::get('/employees', [EmployeeController::class, 'index']);
+        Route::get('/employees/{id}', [EmployeeController::class, 'show']);
+        Route::post('/employees', [EmployeeController::class, 'store']);
+    });
 });
 
 Route::get('/test-insert', function () {
