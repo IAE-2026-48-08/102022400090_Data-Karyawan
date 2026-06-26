@@ -33,6 +33,36 @@
                 ],
                 "summary": "Create employee",
                 "operationId": "3ff8e49d36a48e1e830416022f8c2bc8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nip": {
+                                        "type": "string"
+                                    },
+                                    "nama": {
+                                        "type": "string"
+                                    },
+                                    "jabatan": {
+                                        "type": "string"
+                                    },
+                                    "departemen": {
+                                        "type": "string"
+                                    },
+                                    "gaji_pokok": {
+                                        "type": "integer"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "201": {
                         "description": "Created"

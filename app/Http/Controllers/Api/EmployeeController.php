@@ -69,11 +69,24 @@ class EmployeeController extends Controller
         ]);
     }
 
-    #[OA\Post(
+   #[OA\Post(
         path: '/api/v1/employees',
         summary: 'Create employee',
         security: [['ApiKeyAuth' => []]],
         tags: ['Employees'],
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                properties: [
+                    new OA\Property(property: 'nip', type: 'string'),
+                    new OA\Property(property: 'nama', type: 'string'),
+                    new OA\Property(property: 'jabatan', type: 'string'),
+                    new OA\Property(property: 'departemen', type: 'string'),
+                    new OA\Property(property: 'gaji_pokok', type: 'integer'),
+                    new OA\Property(property: 'email', type: 'string')
+                ]
+            )
+        ),
         responses: [
             new OA\Response(response: 201, description: 'Created'),
             new OA\Response(response: 401, description: 'Unauthorized')

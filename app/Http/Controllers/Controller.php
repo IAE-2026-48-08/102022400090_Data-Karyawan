@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use OpenApi\Attributes as OA;
 
 class Controller extends BaseController
 {
